@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LogEventPublisher {
 
-	private ApplicationEventPublisher applicationEventPublisher;
+	private final ApplicationEventPublisher applicationEventPublisher;
 
 	public void createLog(LogEventDto logEventDto){
 		applicationEventPublisher.publishEvent(logEventDto);

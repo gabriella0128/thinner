@@ -1,5 +1,6 @@
 package com.nns.thinner.event;
 
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import com.nns.thinner.dto.base.LogDto;
@@ -15,6 +16,7 @@ public class LogEventListener {
 
 	private final LogService logService;
 
+	@EventListener
 	public void onLogEventHandler(LogEventDto logEventDto){
 		logService.save(LogDto.Info.builder()
 			.traceId(logEventDto.getTraceId())
