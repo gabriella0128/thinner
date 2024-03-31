@@ -10,3 +10,6 @@ spring:
       maximum-pool-size: 30
       auto-commit: false
       connection-init-sql:
+
+server:
+  port: 8080
