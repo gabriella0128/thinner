@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -32,10 +31,6 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 public class LoggingFilter extends OncePerRequestFilter {
 
-	private final LogEventPublisher logEventPublisher;
-
-	private static final AtomicLong counter = new AtomicLong(0);
-
 	private static final List<MediaType> VISIBLE_TYPES = Arrays.asList(
 		MediaType.valueOf("text/*"),
 		MediaType.APPLICATION_FORM_URLENCODED,
@@ -45,6 +40,13 @@ public class LoggingFilter extends OncePerRequestFilter {
 		MediaType.valueOf("application/*+xml"),
 		MediaType.MULTIPART_FORM_DATA
 	);
+	private final LogEventPublisher logEventPublisher;
+
+	public static String generateTraceId() {
+		long currentTimeMillis = Instant.now().toEpochMilli();
+
+		return String.format("%d", currentTimeMillis);
+	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -144,22 +146,17 @@ public class LoggingFilter extends OncePerRequestFilter {
 		byte[] content = response.getContentAsByteArray();
 
 		String contentType = response.getContentType();
-		MediaType mediaType = MediaType.valueOf(contentType);
-
-		boolean visible = VISIBLE_TYPES.stream().anyMatch(visibleType -> visibleType.includes(mediaType));
 
 		String contentString;
 
 		JsonNode bodyNode = mapper.createObjectNode();
-		if(visible) {
-			if(MediaType.APPLICATION_JSON_VALUE.equals(contentType)){
-				bodyNode = mapper.readTree(response.getContentInputStream());
-			}
-			contentString =new String(content, response.getCharacterEncoding());
 
-		}else{
-			contentString = content.length + " bytes Content";
+		if(MediaType.APPLICATION_JSON_VALUE.equals(contentType)){
+			bodyNode = mapper.readTree(response.getContentInputStream());
 		}
+
+		contentString =new String(content, response.getCharacterEncoding());
+
 		rootNode.put("body", contentString);
 
 		String logMessage = mapper.writeValueAsString(rootNode);
@@ -178,14 +175,6 @@ public class LoggingFilter extends OncePerRequestFilter {
 		log.info(logMessage);
 
 
-	}
-
-
-
-	public static String generateTraceId() {
-		long currentTimeMillis = Instant.now().toEpochMilli();
-		long sequence = counter.getAndIncrement();
-		return String.format("%d-%d", currentTimeMillis, sequence);
 	}
 
 
