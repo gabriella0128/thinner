@@ -18,7 +18,7 @@ public class LogDto {
 	@AllArgsConstructor
 	public static class Info {
 		private Long logIdx;
-		private Long traceId;
+		private String traceId;
 		private String httpMessage;
 		private String httpMethod;
 		private String uri;

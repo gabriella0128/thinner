@@ -31,7 +31,7 @@ public class LogEntity {
 	private Long logIdx;
 
 	@Column(name = "trace_id")
-	private Long traceId;
+	private String traceId;
 
 	@Column(name = "http_message")
 	private String httpMessage;

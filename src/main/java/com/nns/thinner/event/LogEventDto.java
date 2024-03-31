@@ -9,11 +9,12 @@ import lombok.Getter;
 @Builder
 public class LogEventDto {
 	private Long logIdx;
-	private Long traceId;
+	private String traceId;
 	private String httpMessage;
 	private String httpMethod;
 	private String uri;
 	private String log;
+	private Long userIdx;
 	private String userKey;
 	private LocalDateTime createDt;
 
