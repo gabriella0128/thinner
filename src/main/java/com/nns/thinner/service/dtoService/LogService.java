@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nns.thinner.dto.base.LogDto;
 import com.nns.thinner.entity.LogEntity;
 import com.nns.thinner.mapper.LogMapper;
-import com.nns.thinner.repository.LogRepository;
+import com.nns.thinner.repository.log.LogRepository;
 
 import lombok.RequiredArgsConstructor;
 
