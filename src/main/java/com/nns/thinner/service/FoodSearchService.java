@@ -22,7 +22,7 @@ public class FoodSearchService {
 
 		List<FoodDto.Info> foodNameStartingWith = foodService.findAllByFoodNameStartingWith(keyword);
 		List<FoodSearchDto.Info> infos = foodNameStartingWith.stream()
-			.map(foodInfo -> FoodSearchDto.Info.builder().foodName(foodInfo.getFoodName()).build()).toList();
+			.map(foodInfo -> FoodSearchDto.Info.builder().foodIdx(foodInfo.getFoodIdx()).foodName(foodInfo.getFoodName()).kcal(foodInfo.getKcal()).build()).toList();
 
 		return FoodSearchDto.Response.builder().result(true).list(infos).build();
 	}
