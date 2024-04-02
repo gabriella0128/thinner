@@ -38,7 +38,9 @@ public class FoodSearchDto {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Info {
+		private Long foodIdx;
 		private String foodName;
+		private Double kcal;
 	}
 
 
