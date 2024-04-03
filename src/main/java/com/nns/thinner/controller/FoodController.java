@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nns.thinner.dto.FoodSearchDto;
+import com.nns.thinner.dto.base.FoodDto;
 import com.nns.thinner.service.FoodSearchService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,14 @@ public class FoodController {
 	private final FoodSearchService foodSearchService;
 
 	@GetMapping("/search")
-	public ResponseEntity<FoodSearchDto.Response> searchFood(@RequestParam String keyword){
+	public ResponseEntity<FoodSearchDto.Response> searchFood(@RequestParam String keyword) {
 		return ResponseEntity.ok().body(foodSearchService.findFoodNameInfo(keyword));
 
 	}
 
-
+	@GetMapping("/search/detail")
+	public ResponseEntity<FoodDto.Info> searchFoodDetail(@RequestParam Long foodIdx) {
+		return ResponseEntity.ok().body(foodSearchService.findFoodDetailInfo(foodIdx));
+	}
 
 }
