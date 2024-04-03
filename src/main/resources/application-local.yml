@@ -13,3 +13,19 @@ spring:
 
 server:
   port: 8080
+
+  ## JPA Setting Info
+  jpa:
+    hibernate:
+      ddl-auto: validate  # option type: create, create-drop, update, validate, none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: false
+    open-in-view: false
+  output:
+    ansi:
+      enabled: always
+logging:
+  config: classpath:log4j2-local.xml
