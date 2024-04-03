@@ -22,9 +22,17 @@ public class FoodSearchService {
 
 		List<FoodDto.Info> foodNameStartingWith = foodService.findAllByFoodNameStartingWith(keyword);
 		List<FoodSearchDto.Info> infos = foodNameStartingWith.stream()
-			.map(foodInfo -> FoodSearchDto.Info.builder().foodIdx(foodInfo.getFoodIdx()).foodName(foodInfo.getFoodName()).kcal(foodInfo.getKcal()).build()).toList();
-
+			.map(foodInfo -> FoodSearchDto.Info.builder()
+				.foodIdx(foodInfo.getFoodIdx())
+				.foodName(foodInfo.getFoodName())
+				.kcal(foodInfo.getKcal())
+				.build()).toList();
+		log.info(infos.get(0).getFoodName());
 		return FoodSearchDto.Response.builder().result(true).list(infos).build();
+	}
+
+	public FoodDto.Info findFoodDetailInfo(Long foodIdx) {
+		return foodService.findFoodByFoodIdx(foodIdx);
 	}
 
 }

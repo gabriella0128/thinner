@@ -23,7 +23,9 @@ public class FoodService {
 		return foodMapper.toInfoDto(foodRepository.findFoodEntitiesByFoodNameStartingWith(foodName));
 	}
 
-
-
+	@Transactional(readOnly = true)
+	public FoodDto.Info findFoodByFoodIdx(Long foodIdx) {
+		return foodMapper.toInfoDto(foodRepository.findFoodByFoodIdx(foodIdx).orElse(null));
+	}
 
 }

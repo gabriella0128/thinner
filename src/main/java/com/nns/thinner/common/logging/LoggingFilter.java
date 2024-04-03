@@ -1,6 +1,7 @@
 package com.nns.thinner.common.logging;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -54,18 +55,20 @@ public class LoggingFilter extends OncePerRequestFilter {
 
 		String traceId = generateTraceId();
 
-		doFilterWrapped(new ContentCachingRequestWrapper(request), new ContentCachingResponseWrapper(response), filterChain, traceId);
+		doFilterWrapped(new ContentCachingRequestWrapper(request), new ContentCachingResponseWrapper(response),
+			filterChain, traceId);
 
 	}
 
-	protected void doFilterWrapped(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response, FilterChain filterChain, String traceId) throws
+	protected void doFilterWrapped(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response,
+		FilterChain filterChain, String traceId) throws
 		IOException, ServletException {
 		try {
 			logRequest(request, traceId);
 			filterChain.doFilter(request, response);
 
 		} finally {
-			if(!isAsyncDispatch(request)) {
+			if (!isAsyncDispatch(request)) {
 				logResponse(request, response, traceId);
 				response.copyBodyToResponse();
 			}
@@ -100,14 +103,13 @@ public class LoggingFilter extends OncePerRequestFilter {
 
 		JsonNode bodyNode = mapper.createObjectNode();
 
-
-		if(visible) {
-			if(MediaType.APPLICATION_JSON_VALUE.equals(contentType)){
+		if (visible) {
+			if (MediaType.APPLICATION_JSON_VALUE.equals(contentType)) {
 				bodyNode = mapper.readTree(request.getInputStream());
 			}
-			contentString =new String(content, request.getCharacterEncoding());
+			contentString = new String(content, request.getCharacterEncoding());
 
-		}else{
+		} else {
 			contentString = content.length + " bytes Content";
 		}
 
@@ -130,7 +132,8 @@ public class LoggingFilter extends OncePerRequestFilter {
 
 	}
 
-	private void logResponse(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response, String traceId) throws
+	private void logResponse(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response,
+		String traceId) throws
 		IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode rootNode = mapper.createObjectNode();
@@ -151,15 +154,16 @@ public class LoggingFilter extends OncePerRequestFilter {
 
 		JsonNode bodyNode = mapper.createObjectNode();
 
-		if(MediaType.APPLICATION_JSON_VALUE.equals(contentType)){
+		if (MediaType.APPLICATION_JSON_VALUE.equals(contentType)) {
 			bodyNode = mapper.readTree(response.getContentInputStream());
 		}
 
-		contentString =new String(content, response.getCharacterEncoding());
+		contentString = new String(content, StandardCharsets.UTF_8);
 
 		rootNode.put("body", contentString);
 
 		String logMessage = mapper.writeValueAsString(rootNode);
+
 		String logBodyMessage = mapper.writeValueAsString(bodyNode);
 
 		logEventPublisher.createLog(LogEventDto.builder()
@@ -174,9 +178,6 @@ public class LoggingFilter extends OncePerRequestFilter {
 
 		log.info(logMessage);
 
-
 	}
-
-
 
 }

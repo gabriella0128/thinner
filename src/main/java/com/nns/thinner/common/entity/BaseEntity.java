@@ -1,4 +1,4 @@
-package com.nns.thinner.entity;
+package com.nns.thinner.common.entity;
 
 import java.time.LocalDateTime;
 
@@ -56,8 +56,5 @@ public class BaseEntity {
 		this.modifyCode = CommonCode.TABLE_ROW_UPDATE_NORMAL.getRawCode().toString();
 		this.useYn = true;
 	}
-
-
-
 
 }
