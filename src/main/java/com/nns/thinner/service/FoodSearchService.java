@@ -27,7 +27,6 @@ public class FoodSearchService {
 				.foodName(foodInfo.getFoodName())
 				.kcal(foodInfo.getKcal())
 				.build()).toList();
-		log.info(infos.get(0).getFoodName());
 		return FoodSearchDto.Response.builder().result(true).list(infos).build();
 	}
 

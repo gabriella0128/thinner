@@ -19,7 +19,7 @@ public class HealthInfoController {
 	private final BmrCalService bmrCalService;
 
 	@PostMapping("/bmr")
-	public ResponseEntity<HealthDto.Response> getBmr(@RequestBody HealthDto.Request request) {
+	public ResponseEntity<HealthDto.Response> getBmr(@RequestBody final HealthDto.Request request) {
 		return ResponseEntity.ok()
 			.body(HealthDto.Response.builder()
 				.bmr(bmrCalService.bmrCalcProcess(request.getSex(), request.getHeight(), request.getWeight(),

@@ -1,12 +1,14 @@
 package com.nns.thinner.common.logging;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
@@ -56,8 +58,8 @@ public class LoggingFilter extends OncePerRequestFilter {
 		} finally {
 			if (!isAsyncDispatch(request)) {
 				logResponse(request, response, traceId);
-				response.copyBodyToResponse();
 			}
+			response.copyBodyToResponse();
 		}
 	}
 
@@ -77,15 +79,17 @@ public class LoggingFilter extends OncePerRequestFilter {
 		ObjectNode headersNode = rootNode.putObject("headers");
 		Collections.list(request.getHeaderNames())
 			.forEach(headerName -> headersNode.put(headerName, request.getHeader(headerName)));
-
+		InputStream inputStream = request.getInputStream();
 		String contentType = request.getContentType();
 
 		JsonNode bodyNode = mapper.createObjectNode();
 
 		if (MediaType.APPLICATION_JSON_VALUE.equals(contentType)) {
-			bodyNode = mapper.readTree(request.getInputStream());
+			bodyNode = mapper.readTree(inputStream);
 			rootNode.set("body", bodyNode);
 
+		} else {
+			rootNode.put("body", "Empty Content");
 		}
 
 		String logMessage = mapper.writeValueAsString(rootNode);
@@ -105,7 +109,7 @@ public class LoggingFilter extends OncePerRequestFilter {
 
 	}
 
-	private void logResponse(RequestWrapper request, ContentCachingResponseWrapper response, String traceId) throws
+	private void logResponse(HttpServletRequest request, ContentCachingResponseWrapper response, String traceId) throws
 		IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		ObjectNode rootNode = mapper.createObjectNode();
@@ -118,21 +122,20 @@ public class LoggingFilter extends OncePerRequestFilter {
 		rootNode.put("method", request.getMethod());
 		rootNode.put("uri", queryStringUri);
 
-		byte[] content = response.getContentAsByteArray();
-
 		String contentType = response.getContentType();
-
-		String contentString;
+		InputStream inputStream = response.getContentInputStream();
 
 		JsonNode bodyNode = mapper.createObjectNode();
 
 		if (MediaType.APPLICATION_JSON_VALUE.equals(contentType)) {
-			bodyNode = mapper.readTree(response.getContentInputStream());
+			byte[] content = StreamUtils.copyToByteArray(inputStream);
+			if (content.length > 0) {
+				bodyNode = mapper.readTree(content);
+				rootNode.set("body", bodyNode);
+			}
+		} else {
+			rootNode.put("body", "Empty Content");
 		}
-
-		contentString = new String(content, response.getCharacterEncoding());
-
-		rootNode.put("body", contentString);
 
 		String logMessage = mapper.writeValueAsString(rootNode);
 		String logBodyMessage = mapper.writeValueAsString(bodyNode);
