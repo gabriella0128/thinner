@@ -28,4 +28,14 @@ public class UserEntity extends BaseEntity {
 
 	@Column(name = "user_key")
 	private String userKey;
+
+	@Column(name = "user_id")
+	private String userId;
+
+	@Column(name = "password")
+	private String password;
+
+	@Column(name = "validate_yn")
+	private Boolean validateYn;
+
 }
