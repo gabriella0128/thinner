@@ -29,3 +29,6 @@ server:
       enabled: always
 logging:
   config: classpath:log4j2-local.xml
+
+server:
+  port: 8083
