@@ -66,12 +66,10 @@ public class LoggingFilter extends OncePerRequestFilter {
 		try {
 			logRequest(request, traceId);
 			filterChain.doFilter(request, response);
-
 		} finally {
-			if (!isAsyncDispatch(request)) {
-				logResponse(request, response, traceId);
-				response.copyBodyToResponse();
-			}
+			logResponse(request, response, traceId);
+			response.copyBodyToResponse();
+
 		}
 	}
 
