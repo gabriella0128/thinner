@@ -10,9 +10,17 @@ spring:
       maximum-pool-size: 30
       auto-commit: false
       connection-init-sql:
-
+  jwt:
+    expire:
+      accessTokenValidMilliSeconds: 60000  #60 x 10 x 1000 : 1분
+      refreshTokenValidMilliSeconds: 604800000 #60 x 60 x 24 x 7 x 1000 : 1주
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      
 server:
-  port: 8080
+  port: 8083
 
   ## JPA Setting Info
   jpa:
@@ -30,5 +38,3 @@ server:
 logging:
   config: classpath:log4j2-local.xml
 
-server:
-  port: 8083

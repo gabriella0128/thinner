@@ -22,6 +22,10 @@ public class UserService {
 		return userRepository.existsUserEntitiesByUserId(userId);
 	}
 
+	public UserDto.Info findByUserId(String userId) {
+		return userMapper.toInfoDto(userRepository.findUserByUserId(userId).orElse(null));
+	}
+
 	@Transactional
 	public UserDto.Info save(UserDto.Info user) {
 

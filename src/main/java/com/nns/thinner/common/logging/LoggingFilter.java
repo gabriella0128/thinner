@@ -81,7 +81,6 @@ public class LoggingFilter extends OncePerRequestFilter {
 			.forEach(headerName -> headersNode.put(headerName, request.getHeader(headerName)));
 		InputStream inputStream = request.getInputStream();
 		String contentType = request.getContentType();
-
 		JsonNode bodyNode = mapper.createObjectNode();
 
 		if (MediaType.APPLICATION_JSON_VALUE.equals(contentType)) {

@@ -17,7 +17,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
 
 	private final String body;
 
-	public RequestWrapper(HttpServletRequest request, Object newBody) throws IOException {
+	public RequestWrapper(HttpServletRequest request) throws IOException {
 		super(request);
 
 		/**
