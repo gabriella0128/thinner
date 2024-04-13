@@ -12,7 +12,7 @@ import com.nns.thinner.entity.FoodEntity;
 public interface FoodRepository extends JpaRepository<FoodEntity, Long> {
 
 	@Query("SELECT f FROM FoodEntity f WHERE f.foodName LIKE CONCAT(:keyword,'%')")
-	List<FoodEntity> findFoodEntitiesByFoodNameStartingWith(String keyword);
+	List<FoodEntity> findFoodEntitiesByFoodNameStartingWith(@Param("keyword") String keyword);
 
 	@Query("SELECT f FROM FoodEntity f WHERE f.foodIdx = :foodIdx")
 	Optional<FoodEntity> findFoodByFoodIdx(@Param("foodIdx") Long foodIdx);

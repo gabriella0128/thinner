@@ -1,6 +1,7 @@
 package com.nns.thinner.dto.base;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -20,8 +21,9 @@ public class DietDto {
 	public static class Info {
 		private Long dietIdx;
 		private Long userIdx;
-		private LocalDateTime dietDt;
+		private LocalDate dietDt;
 		private Meal meal;
+		private long version;
 	}
 
 	@Getter
@@ -31,11 +33,11 @@ public class DietDto {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class DietInsertRequest {
-		private LocalDateTime dietDt;
+		private String dietDt;
 		private Long userIdx;
 		private Integer mealType;
 		private String foodName;
-		private String kcal;
+		private Double kcal;
 	}
 
 	@Getter
@@ -56,10 +58,17 @@ public class DietDto {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Meal {
-		private List<FoodItem> breakfast;
-		private List<FoodItem> lunch;
-		private List<FoodItem> dinner;
-		private List<FoodItem> extra;
+		@Builder.Default
+		private List<FoodItem> breakfast = new ArrayList<>();
+
+		@Builder.Default
+		private List<FoodItem> lunch = new ArrayList<>();
+
+		@Builder.Default
+		private List<FoodItem> dinner = new ArrayList<>();
+
+		@Builder.Default
+		private List<FoodItem> extra = new ArrayList<>();
 
 	}
 

@@ -45,7 +45,7 @@ public class HealthDto {
 		private Double height;
 		private Double weight;
 		private Integer age;
-
+		private long version;
 	}
 
 }

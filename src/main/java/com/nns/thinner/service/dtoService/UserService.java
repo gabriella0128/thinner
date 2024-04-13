@@ -22,6 +22,7 @@ public class UserService {
 		return userRepository.existsUserEntitiesByUserId(userId);
 	}
 
+	@Transactional(readOnly = true)
 	public UserDto.Info findByUserId(String userId) {
 		return userMapper.toInfoDto(userRepository.findUserByUserId(userId).orElse(null));
 	}

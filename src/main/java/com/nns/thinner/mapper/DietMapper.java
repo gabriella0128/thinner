@@ -31,10 +31,12 @@ public interface DietMapper extends GenericMapper<DietDto, DietEntity> {
 		return objectMapper.readValue(meal, DietDto.Meal.class);
 	}
 
+	@Mapping(source = "user.userIdx", target = "userIdx")
 	@Mapping(target = "meal", source = "meal", qualifiedByName = "stringToMealDtoMapping")
 	DietDto.Info toInfoDto(DietEntity dietEntity);
 
-	@Mapping(target = "meal", source = "meal", qualifiedByName = "dtoToStringMealMapping")
+	@Mapping(target = "meal", source = "meal", qualifiedByName = "mealDtoToStringMapping")
+	@Mapping(source = "userIdx", target = "user.userIdx")
 	DietEntity fromInfoToEntity(DietDto.Info dietInfo);
 
 }

@@ -1,6 +1,6 @@
 package com.nns.thinner.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.hibernate.annotations.SQLRestriction;
 
@@ -43,5 +43,5 @@ public class DietEntity extends BaseEntity {
 	private String meal;
 
 	@Column(name = "diet_dt")
-	private LocalDateTime dietDt;
+	private LocalDate dietDt;
 }

@@ -10,9 +10,10 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class LogTestController {
-	@PostMapping("/api/v1/test")
-	public ResponseEntity<LogDto.Info> test(){
+public class TestController {
+	@PostMapping("/api/v1/log-test")
+	public ResponseEntity<LogDto.Info> testLog() {
 		return ResponseEntity.ok().body(LogDto.Info.builder().log("hello").build());
 	}
+
 }
