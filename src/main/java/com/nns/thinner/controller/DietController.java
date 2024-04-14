@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nns.thinner.dto.base.DietDto;
-import com.nns.thinner.service.DietCreateService;
+import com.nns.thinner.service.DietProcessService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class DietController {
 
-	private final DietCreateService dietCreateService;
+	private final DietProcessService dietProcessService;
 
 	@PostMapping("/diet")
 	public ResponseEntity<DietDto.DietInsertResponse> registerDiet(
 		@RequestBody final DietDto.DietInsertRequest request) {
-		return ResponseEntity.ok().body(dietCreateService.createDiet(request));
+		return ResponseEntity.ok().body(dietProcessService.createDiet(request));
 	}
 
 }
