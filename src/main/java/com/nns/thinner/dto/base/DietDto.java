@@ -79,6 +79,7 @@ public class DietDto {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class FoodItem {
+		private Integer foodNo;
 		private String foodName;
 		private Double kcal;
 	}

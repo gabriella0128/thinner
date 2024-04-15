@@ -27,11 +27,11 @@ public class DietProcessService {
 		DietDto.Info diet = dietService.findByDietDtAndUserIdx(dietDt, request.getUserIdx());
 		Integer mealType = request.getMealType();
 
-		DietDto.FoodItem foodItem = DietDto.FoodItem.builder()
-			.foodName(request.getFoodName())
-			.kcal(request.getKcal()).build();
-
 		if (Objects.isNull(diet)) {
+			DietDto.FoodItem foodItem = DietDto.FoodItem.builder()
+				.foodNo(1)
+				.foodName(request.getFoodName())
+				.kcal(request.getKcal()).build();
 
 			List<DietDto.FoodItem> dietList = new ArrayList<>();
 			dietList.add(foodItem);
@@ -54,10 +54,34 @@ public class DietProcessService {
 
 		} else {
 			switch (mealType) {
-				case 1 -> diet.getMeal().getBreakfast().add(foodItem);
-				case 2 -> diet.getMeal().getLunch().add(foodItem);
-				case 3 -> diet.getMeal().getDinner().add(foodItem);
-				case 4 -> diet.getMeal().getExtra().add(foodItem);
+				case 1 -> diet.getMeal()
+					.getBreakfast()
+					.add(DietDto.FoodItem.builder()
+						.foodNo(diet.getMeal().getBreakfast().size() + 1)
+						.foodName(request.getFoodName())
+						.kcal(request.getKcal())
+						.build());
+				case 2 -> diet.getMeal()
+					.getLunch()
+					.add(DietDto.FoodItem.builder()
+						.foodNo(diet.getMeal().getLunch().size() + 1)
+						.foodName(request.getFoodName())
+						.kcal(request.getKcal())
+						.build());
+				case 3 -> diet.getMeal()
+					.getDinner()
+					.add(DietDto.FoodItem.builder()
+						.foodNo(diet.getMeal().getDinner().size() + 1)
+						.foodName(request.getFoodName())
+						.kcal(request.getKcal())
+						.build());
+				case 4 -> diet.getMeal()
+					.getExtra()
+					.add(DietDto.FoodItem.builder()
+						.foodNo(diet.getMeal().getExtra().size() + 1)
+						.foodName(request.getFoodName())
+						.kcal(request.getKcal())
+						.build());
 				default -> {
 				}
 			}
