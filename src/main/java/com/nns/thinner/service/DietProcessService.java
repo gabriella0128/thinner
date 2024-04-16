@@ -91,4 +91,25 @@ public class DietProcessService {
 		}
 		return DietDto.DietInsertResponse.builder().result(true).build();
 	}
+
+	public DietDto.DietDeleteResponse deleteDiet(DietDto.DietDeleteRequest request) {
+		LocalDate dietDt = DateTimeUtils.toLocalDate(request.getDietDt());
+		DietDto.Info diet = dietService.findByDietDtAndUserIdx(dietDt, request.getUserIdx());
+		Integer mealType = request.getMealType();
+
+		switch (mealType) {
+			case 1 -> diet.getMeal().getBreakfast().removeIf((foodItem) -> foodItem.getFoodNo() == request.getFoodNo());
+			case 2 -> diet.getMeal().getLunch().removeIf((foodItem -> foodItem.getFoodNo() == request.getFoodNo()));
+			case 3 -> diet.getMeal().getDinner().removeIf((foodItem -> foodItem.getFoodNo() == request.getFoodNo()));
+			case 4 -> diet.getMeal().getExtra().removeIf((foodItem -> foodItem.getFoodNo() == request.getFoodNo()));
+			default -> {
+			}
+		}
+
+		dietService.save(diet.toBuilder()
+			.meal(diet.getMeal()).build());
+
+		return DietDto.DietDeleteResponse.builder().result(true).build();
+
+	}
 }

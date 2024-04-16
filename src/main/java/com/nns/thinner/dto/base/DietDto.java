@@ -46,7 +46,31 @@ public class DietDto {
 	@EqualsAndHashCode
 	@NoArgsConstructor
 	@AllArgsConstructor
+	public static class DietDeleteRequest {
+		private String dietDt;
+		private Long userIdx;
+		private Integer mealType;
+		private Integer foodNo;
+	}
+
+	@Getter
+	@ToString
+	@Builder(toBuilder = true)
+	@EqualsAndHashCode
+	@NoArgsConstructor
+	@AllArgsConstructor
 	public static class DietInsertResponse {
+		private Boolean result;
+		private String reason;
+	}
+
+	@Getter
+	@ToString
+	@Builder(toBuilder = true)
+	@EqualsAndHashCode
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class DietDeleteResponse {
 		private Boolean result;
 		private String reason;
 	}
