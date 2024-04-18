@@ -29,4 +29,13 @@ public class ExerciseEntity extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "exercise_idx")
 	private Long exerciseIdx;
+
+	@Column(name = "exercise_name")
+	private String exerciseName;
+
+	@Column(name = "intensity")
+	private String intensity;
+
+	@Column(name = "kcal_per_min")
+	private Double kalPerMin;
 }
