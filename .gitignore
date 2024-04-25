@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+src/main/resources/application-local.yml
+src/main/resources/application-prd.yml
+
 ### STS ###
 .apt_generated
 .classpath
