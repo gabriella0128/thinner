@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nns.thinner.dto.UserJoinDto;
 import com.nns.thinner.dto.UserLoginDto;
+import com.nns.thinner.dto.UserPasswordChangeDto;
 import com.nns.thinner.service.UserJoinService;
 import com.nns.thinner.service.UserLoginService;
 
@@ -30,6 +31,12 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<UserLoginDto.Response> loginUser(@RequestBody final UserLoginDto.Request request) {
 		return ResponseEntity.ok().body(userLoginService.login(request));
+	}
+
+	@PostMapping("/new-password")
+	public ResponseEntity<UserPasswordChangeDto.Response> setNewPassword(
+		@RequestBody final UserPasswordChangeDto.Request request) {
+		return null;
 	}
 
 }
