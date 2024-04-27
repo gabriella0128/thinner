@@ -15,6 +15,7 @@ public class UserPasswordChangeDto {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class Request {
+		private String userId;
 		private String newPassword;
 	}
 
