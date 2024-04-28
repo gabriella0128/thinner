@@ -11,6 +11,7 @@ import com.nns.thinner.dto.UserLoginDto;
 import com.nns.thinner.dto.UserPasswordChangeDto;
 import com.nns.thinner.service.UserJoinService;
 import com.nns.thinner.service.UserLoginService;
+import com.nns.thinner.service.UserPasswordService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +23,8 @@ public class AuthController {
 	private final UserJoinService userJoinService;
 
 	private final UserLoginService userLoginService;
+
+	private final UserPasswordService userPasswordService;
 
 	@PostMapping("/join")
 	public ResponseEntity<UserJoinDto.Response> joinUser(@RequestBody final UserJoinDto.Request request) {
@@ -36,7 +39,7 @@ public class AuthController {
 	@PostMapping("/new-password")
 	public ResponseEntity<UserPasswordChangeDto.Response> setNewPassword(
 		@RequestBody final UserPasswordChangeDto.Request request) {
-		return null;
+		return ResponseEntity.ok().body(userPasswordService.changePassword(request));
 	}
 
 }
