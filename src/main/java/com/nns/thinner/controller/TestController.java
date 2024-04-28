@@ -15,5 +15,4 @@ public class TestController {
 	public ResponseEntity<LogDto.Info> testLog() {
 		return ResponseEntity.ok().body(LogDto.Info.builder().log("hello").build());
 	}
-
 }
