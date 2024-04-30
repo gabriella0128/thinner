@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nns.thinner.dto.UserJoinDto;
 import com.nns.thinner.dto.UserLoginDto;
 import com.nns.thinner.dto.UserPasswordChangeDto;
+import com.nns.thinner.dto.UserPasswordTempDto;
 import com.nns.thinner.service.UserJoinService;
 import com.nns.thinner.service.UserLoginService;
 import com.nns.thinner.service.UserPasswordService;
@@ -40,6 +41,12 @@ public class AuthController {
 	public ResponseEntity<UserPasswordChangeDto.Response> setNewPassword(
 		@RequestBody final UserPasswordChangeDto.Request request) {
 		return ResponseEntity.ok().body(userPasswordService.changePassword(request));
+	}
+
+	@PostMapping("/temp-password")
+	public ResponseEntity<UserPasswordTempDto.Response> sendTempPassword(
+		@RequestBody final UserPasswordTempDto.Request request) {
+		return ResponseEntity.ok().body(userPasswordService.sendTempPassword(request));
 	}
 
 }

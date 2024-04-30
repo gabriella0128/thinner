@@ -7,19 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-public class UserPasswordChangeDto {
-	@Getter
-	@ToString
-	@Builder
-	@EqualsAndHashCode
-	@NoArgsConstructor
-	@AllArgsConstructor
-	public static class Request {
-		private String userId;
-		private String oldPassword;
-		private String newPassword;
-	}
-
+public class UserPasswordTempDto {
 	@Getter
 	@ToString
 	@Builder
@@ -30,4 +18,15 @@ public class UserPasswordChangeDto {
 		private Boolean result;
 		private String reason;
 	}
+
+	@Getter
+	@ToString
+	@Builder
+	@EqualsAndHashCode
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class Request {
+		private String userId;
+	}
+
 }
