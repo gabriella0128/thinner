@@ -17,6 +17,7 @@ public class UserDto {
 	public static class Info {
 		private Long userIdx;
 		private String userId;
+		private String email;
 		private String userKey;
 		private String password;
 		private Boolean validateYn;
