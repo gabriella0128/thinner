@@ -21,6 +21,7 @@ public class UserDto {
 		private String userKey;
 		private String password;
 		private Boolean validateYn;
+		private long version;
 
 	}
 }
