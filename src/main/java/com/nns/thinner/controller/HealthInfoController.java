@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nns.thinner.dto.base.HealthDto;
-import com.nns.thinner.service.BmrCalService;
+import com.nns.thinner.service.BmrCalcService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,13 +16,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HealthInfoController {
 
-	private final BmrCalService bmrCalService;
+	private final BmrCalcService bmrCalcService;
 
 	@PostMapping("/bmr")
 	public ResponseEntity<HealthDto.Response> getBmr(@RequestBody final HealthDto.Request request) {
 		return ResponseEntity.ok()
 			.body(HealthDto.Response.builder()
-				.bmr(bmrCalService.bmrCalcProcess(request.getSex(), request.getHeight(), request.getWeight(),
+				.bmr(bmrCalcService.bmrCalcProcess(request.getSex(), request.getHeight(), request.getWeight(),
 					request.getAge()))
 				.build());
 	}
