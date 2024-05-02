@@ -8,7 +8,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class BmrCalService {
+public class BmrCalcService {
 	private static final Double BMR_CONSTANT_FOR_MALE = 66.47;
 	private static final Double BMR_CONSTANT_FOR_FEMALE = 655.1;
 
