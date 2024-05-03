@@ -24,12 +24,23 @@ public class HealthDto {
 
 	@Getter
 	@ToString
-	@Builder(toBuilder = true)
+	@Builder
 	@EqualsAndHashCode
 	@NoArgsConstructor
 	@AllArgsConstructor
-	public static class Response {
+	public static class BmrResponse {
 		private Double bmr;
+
+	}
+
+	@Getter
+	@ToString
+	@Builder
+	@EqualsAndHashCode
+	@NoArgsConstructor
+	@AllArgsConstructor
+	public static class BmiResponse {
+		private Double bmi;
 
 	}
 
