@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nns.thinner.dto.base.HealthDto;
 import com.nns.thinner.service.BmrCalcService;
+import com.nns.thinner.service.HealthInfoCalcService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,13 +19,21 @@ public class HealthInfoController {
 
 	private final BmrCalcService bmrCalcService;
 
+	private final HealthInfoCalcService healthInfoCalcService;
+
 	@PostMapping("/bmr")
-	public ResponseEntity<HealthDto.Response> getBmr(@RequestBody final HealthDto.Request request) {
+	public ResponseEntity<HealthDto.BmrResponse> getBmr(@RequestBody final HealthDto.Request request) {
 		return ResponseEntity.ok()
-			.body(HealthDto.Response.builder()
+			.body(HealthDto.BmrResponse.builder()
 				.bmr(bmrCalcService.bmrCalcProcess(request.getSex(), request.getHeight(), request.getWeight(),
 					request.getAge()))
 				.build());
+	}
+
+	@PostMapping("/bmi")
+	public ResponseEntity<HealthDto.BmiResponse> getBmi(@RequestBody final HealthDto.Request request) {
+		return ResponseEntity.ok().body(HealthDto.BmiResponse.builder().bmi(healthInfoCalcService.bmiCalcProcess(
+			request.getHeight(), request.getWeight())).build());
 	}
 
 }
