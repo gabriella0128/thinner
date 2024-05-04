@@ -32,8 +32,7 @@ public class HealthInfoController {
 
 	@PostMapping("/bmi")
 	public ResponseEntity<HealthDto.BmiResponse> getBmi(@RequestBody final HealthDto.Request request) {
-		return ResponseEntity.ok().body(HealthDto.BmiResponse.builder().bmi(healthInfoCalcService.bmiCalcProcess(
-			request.getHeight(), request.getWeight())).build());
+		return ResponseEntity.ok().body(healthInfoCalcService.bmiCalcProcess(request.getHeight(), request.getWeight()));
 	}
 
 }
