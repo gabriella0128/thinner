@@ -24,10 +24,9 @@ public class HealthInfoController {
 	@PostMapping("/bmr")
 	public ResponseEntity<HealthDto.BmrResponse> getBmr(@RequestBody final HealthDto.Request request) {
 		return ResponseEntity.ok()
-			.body(HealthDto.BmrResponse.builder()
-				.bmr(bmrCalcService.bmrCalcProcess(request.getSex(), request.getHeight(), request.getWeight(),
-					request.getAge()))
-				.build());
+			.body(
+				bmrCalcService.bmrCalcProcess(request.getSex(), request.getHeight(), request.getWeight(),
+					request.getAge()));
 	}
 
 	@PostMapping("/bmi")
