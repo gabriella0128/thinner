@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nns.thinner.dto.base.HealthDto;
-import com.nns.thinner.service.BmrCalcService;
 import com.nns.thinner.service.HealthInfoCalcService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,8 +15,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("api/v1/health")
 @RequiredArgsConstructor
 public class HealthInfoController {
-
-	private final BmrCalcService bmrCalcService;
 
 	private final HealthInfoCalcService healthInfoCalcService;
 
