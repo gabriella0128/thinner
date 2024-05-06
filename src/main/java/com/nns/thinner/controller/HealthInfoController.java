@@ -25,7 +25,7 @@ public class HealthInfoController {
 	public ResponseEntity<HealthDto.BmrResponse> getBmr(@RequestBody final HealthDto.Request request) {
 		return ResponseEntity.ok()
 			.body(
-				bmrCalcService.bmrCalcProcess(request.getSex(), request.getHeight(), request.getWeight(),
+				healthInfoCalcService.bmrCalcProcess(request.getSex(), request.getHeight(), request.getWeight(),
 					request.getAge()));
 	}
 
