@@ -20,6 +20,8 @@ public class ActivityDto {
 	public static class Info {
 		private Long activityIdx;
 		private Long userIdx;
+		private Long exerciseIdx;
+		private Long minutes;
 		private LocalDate activityDt;
 		private List<ActivityItem> activities;
 		private long version;
