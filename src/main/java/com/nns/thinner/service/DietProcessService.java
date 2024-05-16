@@ -24,8 +24,10 @@ public class DietProcessService {
 	public DietDto.DietInsertResponse createDiet(DietDto.DietInsertRequest request) {
 
 		LocalDate dietDt = DateTimeUtils.toLocalDate(request.getDietDt());
-		DietDto.Info diet = dietService.findByDietDtAndUserIdx(dietDt, request.getUserIdx());
+		List<DietDto.Info> diets = dietService.findByUserIdx(request.getUserIdx());
 		Integer mealType = request.getMealType();
+
+		DietDto.Info diet = diets.stream().filter(item -> item.getDietDt().isEqual(dietDt)).findFirst().orElse(null);
 
 		if (Objects.isNull(diet)) {
 			DietDto.FoodItem foodItem = DietDto.FoodItem.builder()

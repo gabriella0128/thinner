@@ -1,5 +1,7 @@
 package com.nns.thinner.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -38,6 +40,10 @@ public interface DietMapper extends GenericMapper<DietDto, DietEntity> {
 	@Mapping(target = "meal", source = "meal", qualifiedByName = "mealDtoToStringMapping")
 	@Mapping(source = "userIdx", target = "user.userIdx")
 	DietEntity fromInfoToEntity(DietDto.Info dietInfo);
+
+	@Mapping(source = "user.userIdx", target = "userIdx")
+	@Mapping(target = "meal", source = "meal", qualifiedByName = "stringToMealDtoMapping")
+	List<DietDto.Info> toInfoDtoList(List<DietEntity> dietEntityList);
 
 }
 
