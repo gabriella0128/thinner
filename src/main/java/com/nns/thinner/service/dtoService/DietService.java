@@ -1,6 +1,6 @@
 package com.nns.thinner.service.dtoService;
 
-import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +21,8 @@ public class DietService {
 	private final DietRepository dietRepository;
 
 	@Transactional(readOnly = true)
-	public DietDto.Info findByDietDtAndUserIdx(LocalDate dietDt, Long userIdx) {
-		return dietMapper.toInfoDto(dietRepository.findDietEntityByDietDtAndUser(dietDt, userIdx).orElse(null));
+	public List<DietDto.Info> findByUserIdx(Long userIdx) {
+		return dietMapper.toInfoDtoList(dietRepository.findDietEntityByUser(userIdx));
 	}
 
 	@Transactional
