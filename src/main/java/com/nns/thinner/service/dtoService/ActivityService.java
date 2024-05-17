@@ -1,7 +1,10 @@
 package com.nns.thinner.service.dtoService;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.nns.thinner.dto.base.ActivityDto;
+import com.nns.thinner.entity.ActivityEntity;
 import com.nns.thinner.mapper.ActivityMapper;
 import com.nns.thinner.repository.Activity.ActivityRepository;
 
@@ -14,5 +17,12 @@ public class ActivityService {
 	private final ActivityRepository activityRepository;
 
 	private final ActivityMapper activityMapper;
+
+	@Transactional
+	public ActivityDto.Info save(ActivityDto.Info activity) {
+		ActivityEntity activityEntity = activityMapper.fromDtoToEntity(activity);
+		activityRepository.save(activityEntity);
+		return activity;
+	}
 
 }
