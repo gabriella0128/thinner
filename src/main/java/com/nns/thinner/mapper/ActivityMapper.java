@@ -42,4 +42,8 @@ public interface ActivityMapper extends GenericMapper<ActivityDto, ActivityEntit
 	@Mapping(source = "userIdx", target = "user.userIdx")
 	ActivityEntity fromDtoToEntity(ActivityDto.Info activityDto);
 
+	@Mapping(target = "activities", source = "activities", qualifiedByName = "stringToActivitiesMapping")
+	@Mapping(source = "user.userIdx", target = "userIdx")
+	List<ActivityDto.Info> toInfoDtoList(List<ActivityEntity> activityEntityList);
+
 }
