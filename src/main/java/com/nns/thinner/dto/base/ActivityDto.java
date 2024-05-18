@@ -34,11 +34,12 @@ public class ActivityDto {
 	@NoArgsConstructor
 	@AllArgsConstructor
 	public static class ActivityInsertRequest {
-		Long exerciseIdx;
-		Long userIdx;
-		Long minutes;
-		String intensity;
-		long version;
+		private Long exerciseIdx;
+		private String activityDt;
+		private Long userIdx;
+		private Long minutes;
+		private String intensity;
+		private long version;
 
 	}
 

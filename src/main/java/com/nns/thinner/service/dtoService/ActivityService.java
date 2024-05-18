@@ -1,5 +1,7 @@
 package com.nns.thinner.service.dtoService;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,11 @@ public class ActivityService {
 		ActivityEntity activityEntity = activityMapper.fromDtoToEntity(activity);
 		activityRepository.save(activityEntity);
 		return activity;
+	}
+
+	@Transactional(readOnly = true)
+	public List<ActivityDto.Info> findByUserIdx(Long userIdx) {
+		return activityMapper.toInfoDtoList(activityRepository.findActivityEntityByUser(userIdx));
 	}
 
 }
