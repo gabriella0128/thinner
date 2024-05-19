@@ -2,6 +2,7 @@ package com.nns.thinner.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,18 @@ public class ActivityProcessService {
 			.filter(item -> item.getActivityDt().isEqual(activityDt))
 			.findFirst()
 			.orElse(null);
+
+		if (!Objects.isNull(activity)) {
+			List<ActivityDto.ActivityItem> activities = activity.getActivities();
+
+			activities.add(ActivityDto.ActivityItem.builder().exerciseIdx(request.getExerciseIdx())
+				.intensity(request.getIntensity())
+				.minute(request.getMinutes())
+				.build());
+
+		} else {
+
+		}
 
 		return null;
 	}
