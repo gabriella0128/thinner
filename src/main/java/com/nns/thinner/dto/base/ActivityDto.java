@@ -37,7 +37,7 @@ public class ActivityDto {
 		private Long exerciseIdx;
 		private String activityDt;
 		private Long userIdx;
-		private Long minutes;
+		private Integer minutes;
 		private String intensity;
 		private long version;
 
