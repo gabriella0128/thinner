@@ -1,6 +1,7 @@
 package com.nns.thinner.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,10 +36,26 @@ public class ActivityProcessService {
 				.minute(request.getMinutes())
 				.build());
 
-		} else {
+			activityService.save(activity.toBuilder().activities(activities).build());
 
+		} else {
+			List<ActivityDto.ActivityItem> activities = new ArrayList<>();
+
+			activities.add(ActivityDto.ActivityItem.builder().exerciseIdx(request.getExerciseIdx())
+				.intensity(request.getIntensity())
+				.minute(request.getMinutes())
+				.build());
+
+			activityService.save(ActivityDto.Info.builder()
+				.activityDt(activityDt)
+				.userIdx(request.getUserIdx())
+				.exerciseIdx(request.getExerciseIdx())
+				.activities(activities).build());
 		}
 
-		return null;
+		return ActivityDto.ActivityInsertResponse.builder()
+			.result(true)
+			.reason("SUCCESS")
+			.build();
 	}
 }
