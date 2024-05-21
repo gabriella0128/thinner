@@ -47,9 +47,9 @@ public class ActivityProcessService {
 				.build());
 
 			activityService.save(ActivityDto.Info.builder()
+				.userIdx(request.getUserIdx())
 				.activityDt(activityDt)
 				.userIdx(request.getUserIdx())
-				.exerciseIdx(request.getExerciseIdx())
 				.activities(activities).build());
 		}
 
