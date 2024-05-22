@@ -33,7 +33,7 @@ public class ActivityProcessService {
 
 			activities.add(ActivityDto.ActivityItem.builder().exerciseIdx(request.getExerciseIdx())
 				.intensity(request.getIntensity())
-				.minute(request.getMinutes())
+				.minute(request.getMinute())
 				.build());
 
 			activityService.save(activity.toBuilder().activities(activities).build());
@@ -43,7 +43,7 @@ public class ActivityProcessService {
 
 			activities.add(ActivityDto.ActivityItem.builder().exerciseIdx(request.getExerciseIdx())
 				.intensity(request.getIntensity())
-				.minute(request.getMinutes())
+				.minute(request.getMinute())
 				.build());
 
 			activityService.save(ActivityDto.Info.builder()
